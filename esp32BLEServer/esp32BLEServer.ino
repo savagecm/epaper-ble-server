@@ -57,13 +57,13 @@ class MyCallbacks : public BLECharacteristicCallbacks
             Serial.println("*********");
             for (int i = 0; i < rxValue.length(); i++)
             {
-                if(!isFull())
+                if (!isFull())
                 {
                     buffSet(rxValue[i]);
                 }
             }
         }
-        if(isFull())
+        if (isFull())
         {
             flushBuf();
         }

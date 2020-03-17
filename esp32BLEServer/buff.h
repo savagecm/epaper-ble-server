@@ -1,5 +1,3 @@
-
-
 #define BUFF_SIZE 61400
 int bufIndex;
 char bufArr[BUFF_SIZE];
@@ -48,5 +46,4 @@ void setMode(bool is1p)
 {
     epaper1pMode = is1p;
 }
-
 
