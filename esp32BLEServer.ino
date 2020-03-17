@@ -51,36 +51,31 @@ class MyCallbacks : public BLECharacteristicCallbacks
     void onWrite(BLECharacteristic *pCharacteristic)
     {
         std::string rxValue = pCharacteristic->getValue();
-
         if (rxValue.length() > 0)
         {
             Serial.println("*********");
-            Serial.print("Received Value: ");
-
             for (int i = 0; i < rxValue.length(); i++)
             {
-                //         Serial.print(rxValue);
+                if(!isFull())
+                {
+                    buffSet(rxValue[i])
+                }
             }
-            Serial.println();
-            // Do stuff based on the command received from the app
-            if (rxValue.find("A") != -1)
-            {
-                Serial.print("Turning ON!");
-                digitalWrite(LED, HIGH);
-            }
-            else if (rxValue.find("B") != -1)
-            {
-                Serial.print("Turning OFF!");
-                digitalWrite(LED, LOW);
-            }
-            Serial.println();
-            Serial.println("*********");
+        }
+        if(isFull())
+        {
+            flushBuf();
         }
     }
 };
 void setup()
 {
     Serial.begin(115200);
+    // epaper related
+    // SPI initialization
+    EPD_initSPI();
+
+    // LED settings
     pinMode(LED, OUTPUT);
     // Create the BLE Device
     BLEDevice::init("ESP32 UART Test"); // Give it a name
