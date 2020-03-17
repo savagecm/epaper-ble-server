@@ -19,7 +19,8 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
-
+#include "epd.h"
+#include "epd7in5.h"
 BLECharacteristic *pCharacteristic;
 bool deviceConnected = false;
 float txValue = 0;
@@ -58,7 +59,7 @@ class MyCallbacks : public BLECharacteristicCallbacks
             {
                 if(!isFull())
                 {
-                    buffSet(rxValue[i])
+                    buffSet(rxValue[i]);
                 }
             }
         }
@@ -74,6 +75,8 @@ void setup()
     // epaper related
     // SPI initialization
     EPD_initSPI();
+
+    EPD_Init_7in5();
 
     // LED settings
     pinMode(LED, OUTPUT);
