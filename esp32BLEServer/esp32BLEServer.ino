@@ -19,8 +19,8 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
-#include "epd.h"
-#include "epd7in5.h"
+
+#include "epd75.h"
 BLECharacteristic *pCharacteristic;
 bool deviceConnected = false;
 float txValue = 0;
@@ -57,16 +57,10 @@ class MyCallbacks : public BLECharacteristicCallbacks
             Serial.println("*********");
             for (int i = 0; i < rxValue.length(); i++)
             {
-                if (!isFull())
-                {
-                    buffSet(rxValue[i]);
-                }
+                epd7in5::getInstance()->writeData(rxValue[i]);
             }
         }
-        if (isFull())
-        {
-            flushBuf();
-        }
+      
     }
 };
 void setup()
@@ -74,10 +68,8 @@ void setup()
     Serial.begin(115200);
     // epaper related
     // SPI initialization
-    EPD_initSPI();
 
-    EPD_Init_7in5();
-
+    epd7in5::getInstance()->init();
     // LED settings
     pinMode(LED, OUTPUT);
     // Create the BLE Device

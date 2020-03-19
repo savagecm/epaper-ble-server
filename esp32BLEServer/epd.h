@@ -20,9 +20,6 @@
 
 void EPD_initSPI()
 {
-    //Serial.println(SPI._spi_num);
-    //Serial.println(SPI.get);
-
     pinMode(PIN_SPI_BUSY, INPUT);
     pinMode(PIN_SPI_RST, OUTPUT);
     pinMode(PIN_SPI_DC, OUTPUT);
