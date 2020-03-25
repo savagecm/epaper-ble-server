@@ -35,7 +35,7 @@ class MyCallbacks : public BLECharacteristicCallbacks
         std::string rxValue = pCharacteristic->getValue();
         if (rxValue.length() > 0)
         {
-            Serial.println("*********");
+         
             for (int i = 0; i < rxValue.length(); i++)
             {
                 epd7in5::getInstance()->writeData(rxValue[i]);

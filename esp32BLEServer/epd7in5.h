@@ -36,6 +36,10 @@ class epd7in5
 
     bool writeData(char data)
     {
+      if (epdBuffer::getInstance()->isEmpty())
+        {
+            init();
+        }
         if (!epdBuffer::getInstance()->isFull())
         {
             epdBuffer::getInstance()->buffSet(data);
